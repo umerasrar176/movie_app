@@ -50,14 +50,18 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(
+            elevation: 1.0,
+            backgroundColor: Colors.white,
             actions: <Widget>[
               IconButton(
                   onPressed: () {
                   },
-                  icon: const Icon(Icons.search),)
+                  icon: const Icon(Icons.search), color: Colors.black,),
             ],
-            title: Text(_pageTitles[_selectedIndex]),
-          ),
+            title: Text(_pageTitles[_selectedIndex], style: const TextStyle(
+              color: Colors.black,
+            ),
+          )),
           body: pages[_selectedIndex],
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,

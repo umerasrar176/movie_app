@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:movie_app/movieDetailScreen.dart';
 
 class watchScreen extends StatefulWidget {
   const watchScreen({Key? key}) : super(key: key);
@@ -52,34 +53,42 @@ class _watchScreenState extends State<watchScreen> {
           return ListView.builder(
             itemCount: data!.length,
             itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  child: Column(
-                    children: [
-                      Stack(children: <Widget>[
-                        Image.network(
-                          height: 200,
-                          width: double.infinity,
-                          'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
-                          fit: BoxFit.fill,
-                        ),
-                        Container(
-                          //color: Colors.black45,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              data[index].title,
-                              style: const TextStyle(
-                                fontSize: 30.0,
-                                color: Colors.white,
+              return GestureDetector(
+                onTap: () =>
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>
+                            MovieDetail(
+                                id: data[index].id,
+                            ))),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    child: Column(
+                      children: [
+                        Stack(children: <Widget>[
+                          Image.network(
+                            height: 200,
+                            width: double.infinity,
+                            'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
+                            fit: BoxFit.fill,
+                          ),
+                          Container(
+                            //color: Colors.black45,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                data[index].title,
+                                style: const TextStyle(
+                                  fontSize: 30.0,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ]),
-                      //Text(data[index].title),
-                    ],
+                        ]),
+                        //Text(data[index].title),
+                      ],
+                    ),
                   ),
                 ),
               );
