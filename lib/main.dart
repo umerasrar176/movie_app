@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/media_library.dart';
+import 'package:movie_app/morePage.dart';
 import 'package:movie_app/watch.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'HomeScreen.dart';
+import 'movieDetailScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -46,7 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> pages = [
     const HomeScreen(),
     const watchScreen(),
-    const mediaLibrary()
+    const mediaLibrary(),
+    const morePage()
   ];
 
   bool _showSearchBar = false;
@@ -75,19 +78,31 @@ class _MyHomePageState extends State<MyHomePage> {
         var movie = _movies[index];
         return ListTile(
           leading: movie['poster_path'] == null
-              ? Image.network('https://static.thenounproject.com/png/3674270-200.png' ,
-            height: 150,
-            width: 120,
-            fit: BoxFit.fill,)
+              ? Image.network(
+                  'https://static.thenounproject.com/png/3674270-200.png',
+                  height: 150,
+                  width: 120,
+                  fit: BoxFit.fill,
+                )
               : Image.network(
-            height: 150,
-            width: 120,
-            'https://image.tmdb.org/t/p/w92${movie['poster_path']}',
-            fit: BoxFit.fill,
-          ),
+                  height: 150,
+                  width: 120,
+                  'https://image.tmdb.org/t/p/w92${movie['poster_path']}',
+                  fit: BoxFit.fill,
+                ),
           title: Text(movie['title']),
           subtitle: Text(movie['release_date'].toString()),
           trailing: const Icon(Icons.more_horiz),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => MovieDetail(
+                  id: movie['id'],
+                ),
+              ),
+            );
+          }
         );
       },
     );
@@ -96,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       appBar: AppBar(
         elevation: 1.0,
         backgroundColor: Colors.white,
@@ -109,7 +125,10 @@ class _MyHomePageState extends State<MyHomePage> {
             : TextField(
                 autofocus: true,
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search , color: Colors.black,),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
                   hintText: 'TV shows, movies and more',
                 ),
                 onChanged: (value) async {

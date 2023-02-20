@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_app/seatMappingUI.dart';
 import 'package:movie_app/videoPlayerScreen.dart';
 
 class MovieDetail extends StatefulWidget {
@@ -13,7 +14,8 @@ class MovieDetail extends StatefulWidget {
 }
 
 class _MovieDetailState extends State<MovieDetail> {
-  late Map<String, dynamic> _movieDetails;
+
+  Map<String, dynamic> _movieDetails = {};
   bool _isLoading = true;
 
   /*_MovieDetailState() {
@@ -52,7 +54,6 @@ class _MovieDetailState extends State<MovieDetail> {
     return genres;
   }
 
-  late List<dynamic> _images;
   List images1 = [];
   Future<List> getMovieImages1(int movieId) async {
     String apiKey = 'ba772d49635405ae1bcb76668e176747';
@@ -80,7 +81,6 @@ class _MovieDetailState extends State<MovieDetail> {
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
       setState(() {
-        _images = jsonResponse['backdrops'];
       });
     } else {
       throw Exception('Failed to load movie images');
@@ -165,7 +165,11 @@ class _MovieDetailState extends State<MovieDetail> {
                                                 BorderRadius.circular(20),
                                           )),
                                       onPressed: () {
-                                        // done functionality
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                     seatMapingScreen( moviename: _movieDetails['title'], realeasdate: _movieDetails['release_date'], )));
                                       },
                                       child: const Text(
                                         'Get Tickets',

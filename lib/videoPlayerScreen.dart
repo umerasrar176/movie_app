@@ -15,18 +15,42 @@ class VideoPlayer extends StatefulWidget {
 class _VideoPlayerState extends State<VideoPlayer> {
 
   late VlcPlayerController _videoPlayerController;
+
   @override
   void initState() {
     _videoPlayerController = VlcPlayerController.network(
-      'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      'https://archive.org/download/mov-bbb/mov_bbb.mp4',
       hwAcc: HwAcc.full,
       //autoPlay: true,
-      options: VlcPlayerOptions(),
+      options: VlcPlayerOptions(
+        extras: [
+          '--no-drop-late-frames',
+          '--no-skip-frames',
+          '--rtsp-tcp',
+        ],
+      ),
     );
+
     super.initState();
     fetchVideos(widget.id);
     print(widget.id);
+    /*
+    _videoPlayerController.addListener(() {
+      final isEnded = _videoPlayerController.value.isEnded;
+      if (isEnded) {
+        // Navigate back to previous screen
+        Navigator.pop(context);
+      }
+    });*/
   }
+
+
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
+  }
+
   late List<dynamic> videos;
 
   Future<void> fetchVideos(int movieId) async {
@@ -49,9 +73,10 @@ class _VideoPlayerState extends State<VideoPlayer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Video Player'),
+        title: const Text('Video Player'),
       ),
-      body: Column(
+      body:
+      Column(
         children: [
           const SizedBox(
             height: 8,
@@ -74,3 +99,4 @@ class _VideoPlayerState extends State<VideoPlayer> {
     );
   }
 }
+

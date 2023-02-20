@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class mediaLibrary extends StatefulWidget {
   const mediaLibrary({Key? key}) : super(key: key);
@@ -10,6 +11,9 @@ class mediaLibrary extends StatefulWidget {
 class _mediaLibraryState extends State<mediaLibrary> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      body: Center(
+        child: Text('Media Library'),
+      ), );
   }
 }
