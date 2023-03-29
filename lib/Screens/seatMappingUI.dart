@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 class seatMapingScreen extends StatefulWidget {
   final String moviename;
   final String realeasdate;
-  const seatMapingScreen({Key? key, required this.moviename, required this.realeasdate}) : super(key: key);
+  const seatMapingScreen(
+      {Key? key, required this.moviename, required this.realeasdate})
+      : super(key: key);
 
   @override
   State<seatMapingScreen> createState() => _seatMapingScreenState();
@@ -24,10 +26,10 @@ class _seatMapingScreenState extends State<seatMapingScreen> {
   int? _selectedChipIndex = 1;
   Widget _buildDateChip(String date) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child:  Wrap(
-        spacing: 5.0,
-        children: List.generate(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Wrap(
+          spacing: 5.0,
+          children: List.generate(
             dates.length,
             (index) => ChoiceChip(
               label: Text(dates[index]),
@@ -38,17 +40,14 @@ class _seatMapingScreenState extends State<seatMapingScreen> {
                   _selectedChipIndex = isSelected ? index : null;
                 });
               },
-          ),
-        ).toList(),
-      )
-    );
+            ),
+          ).toList(),
+        ));
   }
 
   Widget _buildSeatTemplate(String hallName, double price, String image) {
     return GestureDetector(
-      onTap: () {
-
-      },
+      onTap: () {},
       child: Container(
         width: 200.0,
         height: 250.0,
@@ -64,8 +63,9 @@ class _seatMapingScreenState extends State<seatMapingScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
               child: Text(
                 hallName,
                 style: const TextStyle(color: Colors.black, fontSize: 18.0),
@@ -90,31 +90,16 @@ class _seatMapingScreenState extends State<seatMapingScreen> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          _buildSeatTemplate(
-            'Hall 1',
-            10.0,
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6qy1AXvsgpYu8enYMYRkEsoSUuim7FMrEXLn2Kwz7Q&s'
-          ),
-          _buildSeatTemplate(
-            'Hall 2',
-            12.0,
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6qy1AXvsgpYu8enYMYRkEsoSUuim7FMrEXLn2Kwz7Q&s'
-          ),
-          _buildSeatTemplate(
-            'Hall 3',
-            15.0,
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6qy1AXvsgpYu8enYMYRkEsoSUuim7FMrEXLn2Kwz7Q&s'
-          ),
-          _buildSeatTemplate(
-            'Hall 4',
-            18.0,
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6qy1AXvsgpYu8enYMYRkEsoSUuim7FMrEXLn2Kwz7Q&s'
-          ),
-          _buildSeatTemplate(
-            'Hall 5',
-            20.0,
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6qy1AXvsgpYu8enYMYRkEsoSUuim7FMrEXLn2Kwz7Q&s'
-          ),
+          _buildSeatTemplate('Hall 1', 10.0,
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6qy1AXvsgpYu8enYMYRkEsoSUuim7FMrEXLn2Kwz7Q&s'),
+          _buildSeatTemplate('Hall 2', 12.0,
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6qy1AXvsgpYu8enYMYRkEsoSUuim7FMrEXLn2Kwz7Q&s'),
+          _buildSeatTemplate('Hall 3', 15.0,
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6qy1AXvsgpYu8enYMYRkEsoSUuim7FMrEXLn2Kwz7Q&s'),
+          _buildSeatTemplate('Hall 4', 18.0,
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6qy1AXvsgpYu8enYMYRkEsoSUuim7FMrEXLn2Kwz7Q&s'),
+          _buildSeatTemplate('Hall 5', 20.0,
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6qy1AXvsgpYu8enYMYRkEsoSUuim7FMrEXLn2Kwz7Q&s'),
         ],
       ),
     );
@@ -134,7 +119,10 @@ class _seatMapingScreenState extends State<seatMapingScreen> {
         backgroundColor: Colors.white,
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 60.0),
-          child: Text(widget.moviename, style: const TextStyle(color: Colors.black),),
+          child: Text(
+            widget.moviename,
+            style: const TextStyle(color: Colors.black),
+          ),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(5.0),
@@ -155,7 +143,7 @@ class _seatMapingScreenState extends State<seatMapingScreen> {
             padding: EdgeInsets.symmetric(horizontal: 10.0),
             child: Text(
               'Date',
-              style: TextStyle(fontSize: 20.0 , fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
           ),
           // Scrollable row of different dates

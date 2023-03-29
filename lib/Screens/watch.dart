@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:movie_app/movieDetailScreen.dart';
+import 'package:movie_app/Screens/movieDetailScreen.dart';
+
+import '../API Folder/App_Apis.dart';
 
 class watchScreen extends StatefulWidget {
   const watchScreen({Key? key}) : super(key: key);
@@ -11,42 +13,13 @@ class watchScreen extends StatefulWidget {
   State<watchScreen> createState() => _watchScreenState();
 }
 
-class Movie {
-  final int id;
-  final String title;
-  final String posterPath;
-
-  Movie({required this.id, required this.title, required this.posterPath});
-
-  factory Movie.fromJson(Map<String, dynamic> json) {
-    return Movie(
-      id: json['id'],
-      title: json['title'],
-      posterPath: json['poster_path'],
-    );
-  }
-}
-
 class _watchScreenState extends State<watchScreen> {
-  Future<List<Movie>> fetchMovies() async {
-    Uri url = Uri.parse(
-        'https://api.themoviedb.org/3/movie/upcoming?api_key=ba772d49635405ae1bcb76668e176747');
-    final response = await http.get(url);
-
-    if (response.statusCode == 200) {
-      Map<String, dynamic> data = json.decode(response.body);
-      List results = data['results'];
-      return results.map((movie) => Movie.fromJson(movie)).toList();
-    } else {
-      throw Exception('Failed to load movies');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: FutureBuilder<List<Movie>>(
-      future: fetchMovies(),
+      future: App_Apis.fetchMovies(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Movie>? data = snapshot.data;
@@ -54,11 +27,11 @@ class _watchScreenState extends State<watchScreen> {
             itemCount: data!.length,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () =>
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>
-                            MovieDetail(
-                                id: data[index].id,
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MovieDetail(
+                              id: data[index].id,
                             ))),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

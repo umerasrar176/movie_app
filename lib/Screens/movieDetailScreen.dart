@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:movie_app/seatMappingUI.dart';
-import 'package:movie_app/videoPlayerScreen.dart';
+import 'package:movie_app/Screens/seatMappingUI.dart';
+import 'package:movie_app/Screens/videoPlayerScreen.dart';
+
+import '../API Folder/App_Apis.dart';
 
 class MovieDetail extends StatefulWidget {
   final int id;
@@ -14,33 +13,30 @@ class MovieDetail extends StatefulWidget {
 }
 
 class _MovieDetailState extends State<MovieDetail> {
-
   Map<String, dynamic> _movieDetails = {};
   bool _isLoading = true;
+  List images1 = [];
 
-  /*_MovieDetailState() {
-    images1 ??= [];
-  }*/
+
+  //handling movie details response
+  void _handleMovieDetailsRes() async {
+    _movieDetails = await App_Apis.fetchMovieDetails(widget.id);
+    setState(() {
+      _movieDetails = _movieDetails;
+      _isLoading = false;
+    });
+  }
+
+  //handling movie images response
+  void _handleMovieImagesRes(int movieId) async {
+    images1 = await App_Apis.getMovieImages1(widget.id);
+  }
 
   @override
   void initState() {
     super.initState();
-    getMovieImages1(widget.id);
-    _fetchMovieDetails();
-    //getMovieImages(widget.id);
-  }
-
-  void _fetchMovieDetails() async {
-    Uri url = Uri.parse(
-        'https://api.themoviedb.org/3/movie/${widget.id}?api_key=ba772d49635405ae1bcb76668e176747');
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      setState(() {
-        _movieDetails = json.decode(response.body);
-        _isLoading = false;
-      });
-      //print(_movieDetails);
-    }
+    _handleMovieDetailsRes();
+    _handleMovieImagesRes(widget.id);
   }
 
   String _buildGenresString() {
@@ -52,39 +48,6 @@ class _MovieDetailState extends State<MovieDetail> {
       }
     }
     return genres;
-  }
-
-  List images1 = [];
-  Future<List> getMovieImages1(int movieId) async {
-    String apiKey = 'ba772d49635405ae1bcb76668e176747';
-    Uri apiUrl = Uri.parse(
-        'https://api.themoviedb.org/3/movie/$movieId/images?api_key=$apiKey');
-
-    var response = await http.get(apiUrl);
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body)['posters'];
-      images1 = data.map((e) => e['file_path']).toList();
-      return images1;
-    } else {
-      throw Exception('Failed to load images');
-    }
-  }
-
-
-  void getMovieImages(int movieId) async {
-    String apiKey = 'ba772d49635405ae1bcb76668e176747';
-    Uri apiUrl = Uri.parse(
-        'https://api.themoviedb.org/3/movie/$movieId/images?api_key=$apiKey');
-
-    var response = await http.get(apiUrl);
-
-    if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
-      setState(() {
-      });
-    } else {
-      throw Exception('Failed to load movie images');
-    }
   }
 
   @override
@@ -169,7 +132,13 @@ class _MovieDetailState extends State<MovieDetail> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                     seatMapingScreen( moviename: _movieDetails['title'], realeasdate: _movieDetails['release_date'], )));
+                                                    seatMapingScreen(
+                                                      moviename: _movieDetails[
+                                                          'title'],
+                                                      realeasdate:
+                                                          _movieDetails[
+                                                              'release_date'],
+                                                    )));
                                       },
                                       child: const Text(
                                         'Get Tickets',

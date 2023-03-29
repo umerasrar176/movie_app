@@ -15,9 +15,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Container(
         color: Theme.of(context).backgroundColor,
         child: Center(
-          child: Text('Home Page', style: TextStyle(
-            color: Theme.of(context).textTheme.headline6?.color,
-          ),),
+          child: Text(
+            'Home Page',
+            style: TextStyle(
+              color: Theme.of(context).textTheme.headline6?.color,
+            ),
+          ),
         ),
       ),
     );

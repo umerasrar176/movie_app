@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/media_library.dart';
-import 'package:movie_app/morePage.dart';
-import 'package:movie_app/watch.dart';
+import 'package:movie_app/Screens/media_library.dart';
+import 'package:movie_app/Screens/morePage.dart';
+import 'package:movie_app/Screens/watch.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'HomeScreen.dart';
-import 'movieDetailScreen.dart';
+import 'API Folder/App_Apis.dart';
+import 'Screens/HomeScreen.dart';
+import 'Screens/movieDetailScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -55,21 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _showSearchBar = false;
   List _movies = [];
 
-  Future<List> _searchMovies(String query) async {
-    String apiKey = 'ba772d49635405ae1bcb76668e176747';
-    String url =
-        'https://api.themoviedb.org/3/search/movie?api_key=$apiKey&query=$query';
-
-    var response = await http.get(Uri.parse(url));
-
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body);
-      //print(data['results']);
-      return data['results'];
-    } else {
-      throw Exception('Failed to load search results');
-    }
-  }
 
   Widget _buildMovieList() {
     return ListView.builder(
@@ -77,33 +63,32 @@ class _MyHomePageState extends State<MyHomePage> {
       itemBuilder: (BuildContext context, int index) {
         var movie = _movies[index];
         return ListTile(
-          leading: movie['poster_path'] == null
-              ? Image.network(
-                  'https://static.thenounproject.com/png/3674270-200.png',
-                  height: 150,
-                  width: 120,
-                  fit: BoxFit.fill,
-                )
-              : Image.network(
-                  height: 150,
-                  width: 120,
-                  'https://image.tmdb.org/t/p/w92${movie['poster_path']}',
-                  fit: BoxFit.fill,
+            leading: movie['poster_path'] == null
+                ? Image.network(
+                    'https://static.thenounproject.com/png/3674270-200.png',
+                    height: 150,
+                    width: 120,
+                    fit: BoxFit.fill,
+                  )
+                : Image.network(
+                    height: 150,
+                    width: 120,
+                    'https://image.tmdb.org/t/p/w92${movie['poster_path']}',
+                    fit: BoxFit.fill,
+                  ),
+            title: Text(movie['title']),
+            subtitle: Text(movie['release_date'].toString()),
+            trailing: const Icon(Icons.more_horiz),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MovieDetail(
+                    id: movie['id'],
+                  ),
                 ),
-          title: Text(movie['title']),
-          subtitle: Text(movie['release_date'].toString()),
-          trailing: const Icon(Icons.more_horiz),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MovieDetail(
-                  id: movie['id'],
-                ),
-              ),
-            );
-          }
-        );
+              );
+            });
       },
     );
   }
@@ -132,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   hintText: 'TV shows, movies and more',
                 ),
                 onChanged: (value) async {
-                  var results = await _searchMovies(value);
+                  var results = await App_Apis.searchMovies(value);
                   setState(() {
                     _movies = results;
                   });

@@ -14,6 +14,7 @@ class _morePageState extends State<morePage> {
     return const Scaffold(
       body: Center(
         child: Text('More Page'),
-      ),);
+      ),
+    );
   }
 }

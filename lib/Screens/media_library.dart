@@ -14,6 +14,7 @@ class _mediaLibraryState extends State<mediaLibrary> {
     return const Scaffold(
       body: Center(
         child: Text('Media Library'),
-      ), );
+      ),
+    );
   }
 }
