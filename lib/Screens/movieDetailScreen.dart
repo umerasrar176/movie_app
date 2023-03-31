@@ -13,7 +13,7 @@ class MovieDetail extends StatefulWidget {
 }
 
 class _MovieDetailState extends State<MovieDetail> {
-  Map<String, dynamic> _movieDetails = {};
+  late Map<String, dynamic> _movieDetails = {};
   bool _isLoading = true;
   List images1 = [];
 
@@ -21,10 +21,12 @@ class _MovieDetailState extends State<MovieDetail> {
   //handling movie details response
   void _handleMovieDetailsRes() async {
     _movieDetails = await App_Apis.fetchMovieDetails(widget.id);
-    setState(() {
-      _movieDetails = _movieDetails;
-      _isLoading = false;
-    });
+    if(_movieDetails.isNotEmpty) {
+      setState(() {
+        _movieDetails = _movieDetails;
+        _isLoading = false;
+      });
+    }
   }
 
   //handling movie images response
