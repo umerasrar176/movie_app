@@ -31,7 +31,7 @@ jobs:
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --target=mybuilds/app-release.apk
+        run: flutter build apk --output-dir=mybuilds/
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
