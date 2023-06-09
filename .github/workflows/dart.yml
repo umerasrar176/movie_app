@@ -31,7 +31,10 @@ jobs:
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --output-dir=mybuilds/
+        run: flutter build apk
+        
+      - name: Move apk file 
+        run: mv build/app/outputs/flutter-apk/app-release.apk mybuilds/
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
