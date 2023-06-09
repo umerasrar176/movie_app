@@ -31,10 +31,10 @@ jobs:
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk 
+        run: flutter build apk --target=mybuilds/app-release.apk
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
           name: APK
-          path: mybuilds
+          path: mybuilds/app-release.apk
