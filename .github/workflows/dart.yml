@@ -23,6 +23,9 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 2.x
+          
+      - name: Upgrade Flutter
+        run: flutter upgrade
 
       - name: Install dependencies
         run: flutter pub get
