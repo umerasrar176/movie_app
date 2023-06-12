@@ -1,25 +1,22 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:movie_app/Screens/movieDetailScreen.dart';
 
 import '../API Folder/App_Apis.dart';
 
-class watchScreen extends StatefulWidget {
-  const watchScreen({Key? key}) : super(key: key);
+class WatchScreen extends StatefulWidget {
+  const WatchScreen({Key? key}) : super(key: key);
 
   @override
-  State<watchScreen> createState() => _watchScreenState();
+  State<WatchScreen> createState() => _WatchScreenState();
 }
 
-class _watchScreenState extends State<watchScreen> {
+class _WatchScreenState extends State<WatchScreen> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: FutureBuilder<List<Movie>>(
-      future: App_Apis.fetchMovies(),
+      future: AppApis.fetchMovies(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Movie>? data = snapshot.data;
@@ -45,16 +42,13 @@ class _watchScreenState extends State<watchScreen> {
                             'https://image.tmdb.org/t/p/w500${data[index].posterPath}',
                             fit: BoxFit.fill,
                           ),
-                          Container(
-                            //color: Colors.black45,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                data[index].title,
-                                style: const TextStyle(
-                                  fontSize: 30.0,
-                                  color: Colors.white,
-                                ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              data[index].title,
+                              style: const TextStyle(
+                                fontSize: 30.0,
+                                color: Colors.white,
                               ),
                             ),
                           ),

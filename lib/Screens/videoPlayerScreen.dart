@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../API Folder/App_Apis.dart';
@@ -27,7 +25,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
   String url = "";
   String key = '';
   Future<String> _handlefetchVideosRes(int movieId) async {
-    final url = await App_Apis.fetchVideos(widget.id);
+    final url = await AppApis.fetchVideos(widget.id);
     final key = YoutubePlayer.convertUrlToId(url)!;
     return key;
   }

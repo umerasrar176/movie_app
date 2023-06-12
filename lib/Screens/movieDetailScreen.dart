@@ -20,7 +20,7 @@ class _MovieDetailState extends State<MovieDetail> {
 
   //handling movie details response
   void _handleMovieDetailsRes() async {
-    _movieDetails = await App_Apis.fetchMovieDetails(widget.id);
+    _movieDetails = await AppApis.fetchMovieDetails(widget.id);
     if(_movieDetails.isNotEmpty) {
       setState(() {
         _movieDetails = _movieDetails;
@@ -31,7 +31,7 @@ class _MovieDetailState extends State<MovieDetail> {
 
   //handling movie images response
   void _handleMovieImagesRes(int movieId) async {
-    images1 = await App_Apis.getMovieImages1(widget.id);
+    images1 = await AppApis.getMovieImages1(widget.id);
   }
 
   @override
@@ -119,12 +119,12 @@ class _MovieDetailState extends State<MovieDetail> {
                                 Expanded(
                                     child: Padding(
                                   padding: const EdgeInsets.all(15.0),
-                                  child: Container(
+                                  child: SizedBox(
                                     height: double.infinity,
                                     width: double.infinity,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          primary: Colors.lightBlueAccent,
+                                          backgroundColor: Colors.lightBlueAccent,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(20),
@@ -134,7 +134,7 @@ class _MovieDetailState extends State<MovieDetail> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    seatMapingScreen(
+                                                    SeatMapingScreen(
                                                       moviename: _movieDetails[
                                                           'title'],
                                                       realeasdate:
@@ -155,12 +155,12 @@ class _MovieDetailState extends State<MovieDetail> {
                                 Expanded(
                                     child: Padding(
                                   padding: const EdgeInsets.all(15.0),
-                                  child: Container(
+                                  child: SizedBox(
                                     height: double.infinity,
                                     width: double.infinity,
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          primary: Colors.transparent,
+                                          backgroundColor: Colors.transparent,
                                           side: const BorderSide(
                                               color: Colors.blue,
                                               width: 2,
@@ -178,10 +178,10 @@ class _MovieDetailState extends State<MovieDetail> {
                                                       id: widget.id,
                                                     )));
                                       },
-                                      child: Row(
+                                      child: const Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
-                                        children: const [
+                                        children: [
                                           Icon(
                                             Icons.play_arrow,
                                             color: Colors.white,

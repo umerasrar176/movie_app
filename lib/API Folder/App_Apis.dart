@@ -21,7 +21,7 @@ class Movie {
   }
 }
 
-class  App_Apis{
+class  AppApis{
 
   static Future<bool> checkConnectivity() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
@@ -74,12 +74,12 @@ class  App_Apis{
   static Future<dynamic> fetchMovieDetails(int id) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final isConnected = await checkConnectivity();
-    String Url ='https://api.themoviedb.org/3/movie/$id?api_key=ba772d49635405ae1bcb76668e176747';
+    String url ='https://api.themoviedb.org/3/movie/$id?api_key=ba772d49635405ae1bcb76668e176747';
 
 
     if (isConnected) {
-      Uri url = Uri.parse(Url);
-      final response = await http.get(url);
+      Uri url1 = Uri.parse(url);
+      final response = await http.get(url1);
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         prefs.setString('$id-detail', response.body);
@@ -198,7 +198,9 @@ class  App_Apis{
           'https://api.themoviedb.org/3/movie/$movieId/videos?api_key=ba772d49635405ae1bcb76668e176747&language=en-US');
       final response = await http.get(url);
       if (response.statusCode == 200) {
-        print("Response pure is = $response.body");
+        if (kDebugMode) {
+          print("Response pure is = $response.body");
+        }
         final data = json.decode(response.body)['results'];
         List videos = data.map((video) => video as Map<String, dynamic>).toList();
         final url = "https://www.youtube.com/watch?v=${videos[0]['key']}";
@@ -212,7 +214,6 @@ class  App_Apis{
       final videosJson = prefs.getString('videos_$movieId');
       final url = prefs.getString('video_url_$movieId');
       if (videosJson != null && url != null) {
-        List videos = json.decode(videosJson).map((video) => video as Map<String, dynamic>).toList();
         return url;
       } else {
         throw Exception('No videos found');

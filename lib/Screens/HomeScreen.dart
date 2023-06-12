@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,12 +12,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         child: Center(
           child: Text(
             'Home Page',
             style: TextStyle(
-              color: Theme.of(context).textTheme.headline6?.color,
+              color: Theme.of(context).textTheme.titleLarge?.color,
             ),
           ),
         ),

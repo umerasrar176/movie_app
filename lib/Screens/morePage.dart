@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class morePage extends StatefulWidget {
-  const morePage({Key? key}) : super(key: key);
+class MorePage extends StatefulWidget {
+  const MorePage({Key? key}) : super(key: key);
 
   @override
-  State<morePage> createState() => _morePageState();
+  State<MorePage> createState() => _MorePageState();
 }
 
-class _morePageState extends State<morePage> {
+class _MorePageState extends State<MorePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

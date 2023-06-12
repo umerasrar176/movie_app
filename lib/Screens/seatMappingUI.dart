@@ -1,18 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class seatMapingScreen extends StatefulWidget {
+class SeatMapingScreen extends StatefulWidget {
   final String moviename;
   final String realeasdate;
-  const seatMapingScreen(
+  const SeatMapingScreen(
       {Key? key, required this.moviename, required this.realeasdate})
       : super(key: key);
 
   @override
-  State<seatMapingScreen> createState() => _seatMapingScreenState();
+  State<SeatMapingScreen> createState() => _SeatMapingScreenState();
 }
 
-class _seatMapingScreenState extends State<seatMapingScreen> {
+class _SeatMapingScreenState extends State<SeatMapingScreen> {
   final List<String> dates = [
     'Today',
     'Tomorrow',

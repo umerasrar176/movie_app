@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/Screens/media_library.dart';
 import 'package:movie_app/Screens/morePage.dart';
 import 'package:movie_app/Screens/watch.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'API Folder/App_Apis.dart';
 import 'Screens/HomeScreen.dart';
 import 'Screens/movieDetailScreen.dart';
@@ -36,7 +34,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _isDarkMode = false;
   int _selectedIndex = 0;
 
   static final List<String> _pageTitles = [
@@ -48,9 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> pages = [
     const HomeScreen(),
-    const watchScreen(),
-    const mediaLibrary(),
-    const morePage()
+    const WatchScreen(),
+    const MediaLibrary(),
+    const MorePage()
   ];
 
   bool _showSearchBar = false;
@@ -117,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   hintText: 'TV shows, movies and more',
                 ),
                 onChanged: (value) async {
-                  var results = await App_Apis.searchMovies(value);
+                  var results = await AppApis.searchMovies(value);
                   setState(() {
                     _movies = results;
                   });
