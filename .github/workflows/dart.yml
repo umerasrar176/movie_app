@@ -30,14 +30,14 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build APK
-        run: flutter build apk
+      - name: Build aab bundle 
+        run: flutter build appbundle --release
         
-      - name: Move apk file 
-        run: mv build/app/outputs/flutter-apk/app-release.apk mybuilds/
+      - name: Move aab file 
+        run: mv build/app/outputs/bundle/release/app-release.aab mybuilds/
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
           name: APK
-          path: mybuilds/app-release.apk
+          path: mybuilds/app-release.aab
