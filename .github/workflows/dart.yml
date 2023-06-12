@@ -37,7 +37,7 @@ jobs:
         uses: r0adkll/upload-google-play@v1
         with:
           package_file: build/app/outputs/bundle/release/app-release.aab
-          service_account_json: ${{ secrets.PLAY_STORE_JSON }}
+          service_account_json: ${{ secrets.PLAYSTORE_ACCOUNT_KEY }}
           track: internal # Set the desired release track (e.g., internal, alpha, beta, production)
           release_name: MovieApp v1.1.0 # Set the release name
           release_notes: Initial release plus 1 # Set the release notes
