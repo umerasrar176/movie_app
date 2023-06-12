@@ -23,9 +23,6 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 2.x
-          
-      - name: Upgrade Flutter
-        run: flutter upgrade
 
       - name: Install dependencies
         run: flutter pub get
@@ -37,10 +34,10 @@ jobs:
         uses: r0adkll/upload-google-play@v1
         with:
           packageName: com.personal.movie_app
-          releaseFile: build/app/outputs/bundle/release/app-release.aab
+          releaseFiles: build/app/outputs/bundle/release/app-release.aab
           serviceAccountJsonPlainText: ${{ secrets.PLAYSTORE_ACCOUNT_KEY }}
           track: internal # Set the desired release track (e.g., internal, alpha, beta, production)
-          release_name: MovieApp v1.1.0 # Set the release name
+          releasename: MovieApp v1.1.0 # Set the release name
           release_notes: Initial release plus 1 # Set the release notes
         
       - name: Move aab file 
