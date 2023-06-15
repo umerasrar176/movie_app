@@ -29,9 +29,6 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
-        
-      - name: Run flutter App
-        run: flutter run
 
       - name: Build aab bundle 
         run: flutter build appbundle --release
