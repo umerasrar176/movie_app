@@ -41,6 +41,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.PLAYSTORE_ACCOUNT_KEY }}
           track: internal # Set the desired release track (e.g., internal, alpha, beta, production)
           releasename: MovieApp v1.1.0 # Set the release NamE
+          status: draft # Set the release status as draft
         
       - name: Move aab file 
         run: mv build/app/outputs/bundle/release/app-release.aab mybuilds/
